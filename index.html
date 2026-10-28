@@ -1,0 +1,582 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>De mis intereses a una investigación matemática | IB AA HL</title>
+<style>
+:root {
+  --navy:#17365d;
+  --blue:#245a91;
+  --teal:#167c80;
+  --pale:#eef5fc;
+  --ink:#243448;
+  --muted:#617187;
+  --line:#d8e2ed;
+  --paper:#ffffff;
+  --green:#e6f4ec;
+  --amber:#fff4d8;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:#f2f5f9;color:var(--ink);
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  line-height:1.6;
+}
+header{
+  background:linear-gradient(125deg,#17365d,#245a91);
+  color:white;padding:30px max(20px,calc((100% - 1050px)/2));
+}
+header h1{font-size:clamp(1.65rem,4vw,2.5rem);line-height:1.2;margin:10px 0}
+header p{margin:8px 0;color:#e2ecf7}
+.eyebrow{
+  text-transform:uppercase;letter-spacing:.12em;
+  font-size:.76rem;font-weight:750;color:#c6e8f2;
+}
+.wrap{max-width:1050px;margin:auto;padding:22px 18px 50px}
+.intro,.panel,.example,.prompt,.idea-card{
+  background:var(--paper);border:1px solid var(--line);
+  border-radius:14px;padding:20px;margin-bottom:16px;
+}
+.intro{border-left:5px solid var(--teal)}
+h2{color:var(--navy);line-height:1.25;margin-top:0}
+h3{color:var(--blue);margin-top:22px}
+p{margin:8px 0 14px}
+.small{font-size:.9rem;color:var(--muted)}
+.pill{
+  display:inline-block;border-radius:99px;background:#e4effa;
+  color:var(--navy);padding:4px 10px;font-size:.8rem;font-weight:700;
+}
+nav{
+  display:flex;gap:8px;overflow-x:auto;padding:4px 0 14px;
+  position:sticky;top:0;background:#f2f5f9;z-index:5;
+}
+nav button{
+  border:1px solid var(--line);background:white;color:var(--navy);
+  border-radius:10px;padding:10px 13px;cursor:pointer;
+  white-space:nowrap;font-weight:650;
+}
+nav button.active{background:var(--navy);color:white;border-color:var(--navy)}
+button:focus-visible,input:focus-visible,textarea:focus-visible{
+  outline:3px solid #7ab8ec;outline-offset:2px;
+}
+.page{display:none}
+.page.active{display:block}
+label{display:block;font-weight:650;margin:16px 0 6px}
+input[type="text"],textarea,select{
+  width:100%;border:1px solid #bdccdc;border-radius:9px;
+  padding:11px 12px;font:inherit;background:white;color:var(--ink);
+}
+textarea{min-height:85px;resize:vertical}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.idea-card{margin:0;padding:16px}
+.idea-card h3{margin:0 0 8px;font-size:1.05rem}
+.idea-card .math{font-size:.88rem;color:var(--teal);font-weight:650}
+.callout{
+  border-radius:10px;padding:14px 16px;margin:14px 0;
+  background:var(--pale);border-left:4px solid var(--blue);
+}
+.callout.green{background:var(--green);border-color:#34845d}
+.callout.amber{background:var(--amber);border-color:#c18a24}
+.steps{padding-left:22px}
+.steps li{margin-bottom:9px}
+.example{padding:17px;margin:12px 0}
+.example .before{color:#8b4b31}
+.example .after{color:#176b4b;font-weight:650}
+details{
+  border:1px solid var(--line);border-radius:10px;padding:12px 15px;
+  margin:10px 0;background:white;
+}
+summary{cursor:pointer;font-weight:700;color:var(--navy)}
+.checklist{list-style:none;padding:0}
+.checklist li{margin:10px 0}
+.checklist label{font-weight:450;display:flex;gap:10px;align-items:flex-start;margin:0}
+input[type="checkbox"]{margin-top:6px;accent-color:var(--teal)}
+.actions{
+  display:flex;gap:10px;flex-wrap:wrap;margin-top:20px;
+}
+.action{
+  border:0;border-radius:9px;padding:11px 17px;
+  cursor:pointer;font:inherit;font-weight:700;background:var(--navy);color:white;
+}
+.action.secondary{background:white;color:var(--navy);border:1px solid var(--line)}
+.action.teal{background:var(--teal)}
+.footer-nav{
+  display:flex;justify-content:space-between;gap:12px;
+  margin-top:22px;padding-top:16px;border-top:1px solid var(--line);
+}
+.progress{height:5px;background:#dce5ef;border-radius:9px;overflow:hidden}
+.progress div{height:100%;width:16.67%;background:var(--teal);transition:width .2s}
+#status{font-size:.85rem;color:var(--muted);margin-left:auto}
+footer{text-align:center;font-size:.85rem;color:var(--muted);padding:20px}
+@media(max-width:650px){
+ .grid,.cards{grid-template-columns:1fr}
+ header{padding:24px 18px}
+ .wrap{padding:16px 12px 35px}
+ .panel,.intro{padding:16px}
+ nav button{font-size:.83rem;padding:9px 10px}
+}
+@media print{
+ body{background:white}
+ header{background:white!important;color:#17365d;padding:10px 0}
+ header p,.eyebrow{color:#17365d}
+ nav,.actions,.footer-nav,.progress,.no-print,footer{display:none!important}
+ .wrap{padding:0}
+ .page{display:block!important;page-break-after:always}
+ .panel,.intro,.example,.idea-card{break-inside:avoid;box-shadow:none}
+ textarea,input[type="text"]{border:1px solid #aaa}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">Bachillerato Internacional · Matemáticas AA HL</div>
+  <h1>De mis intereses a una investigación matemática</h1>
+  <p>Explora, conecta ideas, formula preguntas y encuentra un posible punto de partida para tu evaluación interna.</p>
+  <p><strong>Duración:</strong> 60 minutos · <strong>Modalidad:</strong> individual y por parejas</p>
+</header>
+
+<div class="wrap">
+  <section class="intro">
+    <h2>Tu reto de hoy</h2>
+    No tienes que elegir definitivamente el tema de tu evaluación interna.
+    Tu objetivo es salir con <strong>dos o tres posibles preguntas de investigación</strong>
+    que conecten algo que te interesa con unas matemáticas que merezca la pena explorar.
+    <div class="callout green">
+      <strong>Recuerda:</strong> empieza por algo que quieras comprender.
+      No necesitas decidir de antemano qué técnica matemática vas a utilizar.
+    </div>
+  </section>
+
+  <div class="progress no-print"><div id="progressBar"></div></div>
+  <nav class="no-print" aria-label="Fases de la actividad">
+    <button class="active" data-page="0">1. Exploro · 10 min</button>
+    <button data-page="1">2. Busco matemáticas · 8 min</button>
+    <button data-page="2">3. Comparto · 8 min</button>
+    <button data-page="3">4. Formulo · 18 min</button>
+    <button data-page="4">5. Reviso · 12 min</button>
+    <button data-page="5">6. Concluyo · 4 min</button>
+  </nav>
+
+  <main>
+    <!-- FASE 1 -->
+    <section class="page active" id="page0">
+      <span class="pill">TRABAJO INDIVIDUAL · 10 MIN</span>
+      <h2>1. Explora tus intereses</h2>
+      <p>Piensa en tu vida cotidiana. No busques todavía un título para tu trabajo: busca situaciones sobre las que te gustaría saber más.</p>
+
+      <div class="grid">
+        <div class="prompt">
+          <h3>Mis aficiones</h3>
+          <p>¿Qué haces en tu tiempo libre? ¿Qué temas sigues por iniciativa propia?</p>
+          <textarea data-save="interests1" placeholder="Deportes, música, videojuegos, fotografía, viajes..."></textarea>
+        </div>
+        <div class="prompt">
+          <h3>Mis curiosidades</h3>
+          <p>¿Qué te gustaría entender, comparar, explicar o predecir?</p>
+          <textarea data-save="interests2" placeholder="Me pregunto por qué..., me gustaría entender..."></textarea>
+        </div>
+        <div class="prompt">
+          <h3>Mi entorno</h3>
+          <p>¿Qué datos, patrones o decisiones observas en tu día a día?</p>
+          <textarea data-save="interests3" placeholder="Precios, tiempos, distancias, resultados, crecimiento..."></textarea>
+        </div>
+        <div class="prompt">
+          <h3>Mis experiencias</h3>
+          <p>¿Has observado algo que te sorprenda o que quieras comprobar?</p>
+          <textarea data-save="interests4" placeholder="Algo que haya observado, medido o experimentado..."></textarea>
+        </div>
+      </div>
+
+      <label for="topInterests">Selecciona tus tres intereses más prometedores</label>
+      <textarea id="topInterests" data-save="topInterests" placeholder="1. ...&#10;2. ...&#10;3. ..."></textarea>
+
+      <div class="callout">
+        <strong>Si ya tienes una idea:</strong> no la descartes. Anota qué es lo que realmente te gustaría averiguar sobre ella.
+      </div>
+      <label for="existingIdea">Una idea que ya tenía (opcional)</label>
+      <textarea id="existingIdea" data-save="existingIdea" placeholder="Mi idea inicial y lo que me gustaría averiguar..."></textarea>
+    </section>
+
+    <!-- FASE 2 -->
+    <section class="page" id="page1">
+      <span class="pill">INDIVIDUAL · 8 MIN</span>
+      <h2>2. ¿Dónde están las matemáticas?</h2>
+      <p>Utiliza estas sugerencias para ampliar tus ideas. No tienes que escoger una de ellas: pueden ayudarte a encontrar otro enfoque para algo que ya te interesa.</p>
+
+      <div class="cards">
+        <article class="idea-card">
+          <h3>Deporte y rendimiento</h3>
+          <p>¿Cómo cambia el rendimiento con el entrenamiento? ¿Qué factores se relacionan con el resultado?</p>
+          <p class="math">Posibles conexiones: estadística, regresión, funciones, optimización, probabilidad.</p>
+        </article>
+        <article class="idea-card">
+          <h3>Música y sonido</h3>
+          <p>¿Cómo se puede representar una onda sonora? ¿Qué patrones aparecen en ritmos o escalas?</p>
+          <p class="math">Posibles conexiones: funciones trigonométricas, periodicidad, sucesiones, análisis de datos.</p>
+        </article>
+        <article class="idea-card">
+          <h3>Videojuegos y juegos de estrategia</h3>
+          <p>¿Cómo cambian las probabilidades de ganar? ¿Qué estrategia resulta más eficaz bajo ciertas condiciones?</p>
+          <p class="math">Posibles conexiones: probabilidad, combinatoria, matrices, teoría de juegos.</p>
+        </article>
+        <article class="idea-card">
+          <h3>Redes sociales y tecnología</h3>
+          <p>¿Cómo evoluciona una cuenta? ¿Qué modelo representa mejor determinados datos?</p>
+          <p class="math">Posibles conexiones: funciones exponenciales y logarítmicas, regresión, tasas de cambio.</p>
+        </article>
+        <article class="idea-card">
+          <h3>Arquitectura y diseño</h3>
+          <p>¿Qué dimensiones optimizan un diseño? ¿Cómo se puede modelizar una forma o una estructura?</p>
+          <p class="math">Posibles conexiones: geometría, trigonometría, cálculo, optimización, vectores.</p>
+        </article>
+        <article class="idea-card">
+          <h3>Economía y decisiones</h3>
+          <p>¿Qué opción resulta más conveniente? ¿Cómo evoluciona una cantidad con el tiempo?</p>
+          <p class="math">Posibles conexiones: sucesiones, funciones, cálculo, modelos financieros.</p>
+        </article>
+        <article class="idea-card">
+          <h3>Naturaleza y medioambiente</h3>
+          <p>¿Qué patrones aparecen en los datos? ¿Cómo evoluciona una población o una variable ambiental?</p>
+          <p class="math">Posibles conexiones: estadística, funciones, modelización, ecuaciones diferenciales si procede.</p>
+        </article>
+        <article class="idea-card">
+          <h3>Matemáticas y otros intereses</h3>
+          <p>Fotografía, arte, transporte, medicina, astronomía, cocina, idiomas o cualquier otra afición.</p>
+          <p class="math">Posibles conexiones: geometría, proporciones, probabilidad, estadística, funciones y cálculo.</p>
+        </article>
+      </div>
+
+      <h3>Haz conexiones propias</h3>
+      <p>Elige dos o tres intereses. ¿Qué cantidades podrías medir? ¿Qué variables podrían relacionarse? ¿Qué patrón podrías estudiar?</p>
+      <label for="mathConnections">Interés → situación → posible conexión matemática</label>
+      <textarea id="mathConnections" data-save="mathConnections" placeholder="Ejemplo: fotografía → relación entre distancia y perspectiva → geometría y funciones."></textarea>
+
+      <div class="callout amber">
+        <strong>Importante para AA HL:</strong> una investigación no se vuelve profunda por incluir muchas fórmulas o una técnica avanzada. Lo importante es desarrollar las matemáticas de manera pertinente, comprensible y rigurosa, y reflexionar sobre los resultados.
+      </div>
+    </section>
+
+    <!-- FASE 3 -->
+    <section class="page" id="page2">
+      <span class="pill">TRABAJO POR PAREJAS · 8 MIN</span>
+      <h2>3. Compartid y ampliad las ideas</h2>
+      <p>Cada persona dispone de unos cuatro minutos para compartir sus intereses y las conexiones matemáticas que ha imaginado.</p>
+
+      <ol class="steps">
+        <li>Explica una de tus ideas sin intentar justificarla perfectamente.</li>
+        <li>Tu compañero escucha y propone otras variables, comparaciones, patrones o enfoques.</li>
+        <li>Intercambiad los papeles.</li>
+        <li>Anota las sugerencias que te resulten interesantes. No tienes obligación de aceptarlas.</li>
+      </ol>
+
+      <div class="callout green">
+        <strong>La función del compañero no es elegir el tema por ti.</strong>
+        Su papel es ayudarte a ver posibilidades que quizá no habías considerado.
+      </div>
+
+      <label for="partnerName">Nombre o iniciales de mi compañero/a (opcional)</label>
+      <input id="partnerName" data-save="partnerName" type="text" placeholder="Nombre o iniciales">
+
+      <label for="partnerSuggestions">Ideas, variables o enfoques que me ha sugerido</label>
+      <textarea id="partnerSuggestions" data-save="partnerSuggestions" placeholder="Podría comparar..., estudiar cómo cambia..., modelizar..."></textarea>
+
+      <label for="newIdeas">¿Qué posibilidad no había visto antes?</label>
+      <textarea id="newIdeas" data-save="newIdeas" placeholder="La sugerencia que más ha ampliado mi idea ha sido..."></textarea>
+
+      <label for="chosenInterests">¿Qué dos o tres intereses voy a explorar ahora?</label>
+      <textarea id="chosenInterests" data-save="chosenInterests" placeholder="1. ...&#10;2. ...&#10;3. ..."></textarea>
+    </section>
+
+    <!-- FASE 4 -->
+    <section class="page" id="page3">
+      <span class="pill">TRABAJO INDIVIDUAL · 18 MIN</span>
+      <h2>4. De una idea a una pregunta matemática</h2>
+      <p>Ahora vas a transformar tus intereses en posibles preguntas de investigación. Primero observa los ejemplos y después aplica el proceso a tus propias ideas.</p>
+
+      <div class="example">
+        <h3>Ejemplo A · Deporte</h3>
+        <p class="before"><strong>Interés general:</strong> Me gusta el baloncesto.</p>
+        <p><strong>Concreción:</strong> Me interesa saber cómo varía la probabilidad de encestar según la distancia.</p>
+        <p class="after"><strong>Posible pregunta:</strong> ¿Qué modelo matemático describe la relación entre la distancia de lanzamiento y el porcentaje de acierto en una muestra de lanzamientos?</p>
+        <details>
+          <summary>¿Qué matemáticas podrían aparecer?</summary>
+          Estadística, representación gráfica, regresión y evaluación de la calidad del modelo. Habría que obtener suficientes datos comparables y considerar otros factores que influyen en los lanzamientos.
+        </details>
+      </div>
+
+      <div class="example">
+        <h3>Ejemplo B · Música</h3>
+        <p class="before"><strong>Interés general:</strong> Me interesa la música.</p>
+        <p><strong>Concreción:</strong> Quiero estudiar cómo se representan las ondas de un sonido musical.</p>
+        <p class="after"><strong>Posible pregunta:</strong> ¿Hasta qué punto puede una combinación de funciones trigonométricas aproximar la forma de onda de una nota producida por un instrumento concreto?</p>
+        <details>
+          <summary>¿Qué matemáticas podrían aparecer?</summary>
+          Funciones trigonométricas, amplitud, periodo, frecuencia y superposición de funciones. Se podría evaluar la calidad de la aproximación y discutir sus limitaciones.
+        </details>
+      </div>
+
+      <div class="example">
+        <h3>Ejemplo C · Diseño y optimización</h3>
+        <p class="before"><strong>Interés general:</strong> Me interesan los envases y el diseño.</p>
+        <p><strong>Concreción:</strong> Quiero reducir el material empleado en un envase de capacidad fija.</p>
+        <p class="after"><strong>Posible pregunta:</strong> ¿Qué dimensiones de un envase cilíndrico de volumen fijo minimizan su superficie, bajo un modelo geométrico idealizado?</p>
+        <details>
+          <summary>¿Qué matemáticas podrían aparecer?</summary>
+          Funciones, restricciones, derivadas y optimización. Después sería necesario discutir si las dimensiones ideales son realistas para un envase fabricado.
+        </details>
+      </div>
+
+      <div class="example">
+        <h3>Ejemplo D · Probabilidad y estrategia</h3>
+        <p class="before"><strong>Interés general:</strong> Me gustan los juegos de cartas.</p>
+        <p><strong>Concreción:</strong> Quiero comparar la probabilidad de conseguir determinadas combinaciones.</p>
+        <p class="after"><strong>Posible pregunta:</strong> ¿Cómo cambia la probabilidad de obtener una combinación determinada al modificar el tamaño de la mano en un juego de cartas definido?</p>
+        <details>
+          <summary>¿Qué matemáticas podrían aparecer?</summary>
+          Combinatoria, probabilidad condicionada si corresponde y comparación de modelos. Es esencial definir con precisión las reglas y los sucesos.
+        </details>
+      </div>
+
+      <div class="callout">
+        <strong>Observa el proceso:</strong> interés → situación concreta → pregunta → matemáticas posibles.
+        Una buena pregunta no tiene que estar redactada perfectamente desde el principio.
+      </div>
+
+      <h3>Tu turno: construye tus propias preguntas</h3>
+      <p>Completa una ficha para cada una de tus ideas. Intenta que las preguntas sean específicas y que permitan un desarrollo matemático real.</p>
+
+      <div class="panel">
+        <h3>Idea 1</h3>
+        <label for="topic1">Mi interés o contexto</label>
+        <input id="topic1" data-save="topic1" type="text" placeholder="¿Qué tema me interesa?">
+        <label for="specific1">¿Qué quiero averiguar exactamente?</label>
+        <textarea id="specific1" data-save="specific1" placeholder="Quiero comparar, explicar, predecir, optimizar..."></textarea>
+        <label for="question1">Mi posible pregunta de investigación</label>
+        <textarea id="question1" data-save="question1" placeholder="¿Hasta qué punto..., qué modelo..., cómo influye...?"></textarea>
+        <label for="math1">Matemáticas que podría utilizar</label>
+        <textarea id="math1" data-save="math1" placeholder="Conceptos, modelos o técnicas que podría explorar..."></textarea>
+        <label for="data1">Datos o recursos que necesitaría</label>
+        <textarea id="data1" data-save="data1" placeholder="¿Cómo conseguiría los datos o construiría el modelo?"></textarea>
+      </div>
+
+      <div class="panel">
+        <h3>Idea 2</h3>
+        <label for="topic2">Mi interés o contexto</label>
+        <input id="topic2" data-save="topic2" type="text" placeholder="¿Qué tema me interesa?">
+        <label for="specific2">¿Qué quiero averiguar exactamente?</label>
+        <textarea id="specific2" data-save="specific2" placeholder="Quiero comparar, explicar, predecir, optimizar..."></textarea>
+        <label for="question2">Mi posible pregunta de investigación</label>
+        <textarea id="question2" data-save="question2" placeholder="¿Hasta qué punto..., qué modelo..., cómo influye...?"></textarea>
+        <label for="math2">Matemáticas que podría utilizar</label>
+        <textarea id="math2" data-save="math2" placeholder="Conceptos, modelos o técnicas que podría explorar..."></textarea>
+        <label for="data2">Datos o recursos que necesitaría</label>
+        <textarea id="data2" data-save="data2" placeholder="¿Cómo conseguiría los datos o construiría el modelo?"></textarea>
+      </div>
+
+      <div class="panel">
+        <h3>Idea 3</h3>
+        <label for="topic3">Mi interés o contexto</label>
+        <input id="topic3" data-save="topic3" type="text" placeholder="¿Qué tema me interesa?">
+        <label for="specific3">¿Qué quiero averiguar exactamente?</label>
+        <textarea id="specific3" data-save="specific3" placeholder="Quiero comparar, explicar, predecir, optimizar..."></textarea>
+        <label for="question3">Mi posible pregunta de investigación</label>
+        <textarea id="question3" data-save="question3" placeholder="¿Hasta qué punto..., qué modelo..., cómo influye...?"></textarea>
+        <label for="math3">Matemáticas que podría utilizar</label>
+        <textarea id="math3" data-save="math3" placeholder="Conceptos, modelos o técnicas que podría explorar..."></textarea>
+        <label for="data3">Datos o recursos que necesitaría</label>
+        <textarea id="data3" data-save="data3" placeholder="¿Cómo conseguiría los datos o construiría el modelo?"></textarea>
+      </div>
+    </section>
+
+    <!-- FASE 5 -->
+    <section class="page" id="page4">
+      <span class="pill">TRABAJO POR PAREJAS · 12 MIN</span>
+      <h2>5. Revisa y mejora tus preguntas</h2>
+      <p>Volved a trabajar por parejas. Cada alumno presenta sus preguntas y explica qué matemáticas cree que podría utilizar.</p>
+
+      <ol class="steps">
+        <li>Escucha la pregunta de tu compañero sin intentar resolverla.</li>
+        <li>Identifica qué parte resulta interesante y qué parte no está suficientemente delimitada.</li>
+        <li>Propón una manera de concretarla o una posible herramienta matemática.</li>
+        <li>Intercambiad los papeles y anotad los cambios que cada uno quiera considerar.</li>
+      </ol>
+
+      <h3>Lista de comprobación</h3>
+      <p>Utiliza estos criterios como orientación inicial, no como una rúbrica oficial ni como una garantía de que un tema sea adecuado.</p>
+      <ul class="checklist">
+        <li><label><input type="checkbox" data-save="check1"> <span><strong>Interés personal:</strong> puedo explicar por qué quiero investigar esta cuestión.</span></label></li>
+        <li><label><input type="checkbox" data-save="check2"> <span><strong>Pregunta concreta:</strong> sé qué quiero averiguar y el alcance es manejable.</span></label></li>
+        <li><label><input type="checkbox" data-save="check3"> <span><strong>Matemáticas relevantes:</strong> puedo identificar conceptos que permitan investigar, no solo describir el contexto.</span></label></li>
+        <li><label><input type="checkbox" data-save="check4"> <span><strong>Viabilidad:</strong> puedo conseguir los datos o formular un modelo razonable.</span></label></li>
+        <li><label><input type="checkbox" data-save="check5"> <span><strong>Posibilidad de profundizar:</strong> puedo analizar resultados, justificar decisiones y examinar limitaciones.</span></label></li>
+      </ul>
+
+      <label for="feedback">Comentarios que he recibido de mi compañero/a</label>
+      <textarea id="feedback" data-save="feedback" placeholder="La pregunta podría mejorar si..., podrías explorar..."></textarea>
+
+      <label for="revision">¿Qué cambio voy a introducir en alguna de mis preguntas?</label>
+      <textarea id="revision" data-save="revision" placeholder="Antes... / Ahora... / El motivo del cambio..."></textarea>
+
+      <div class="callout amber">
+        <strong>No descartes una idea solo porque aún no conozcas todas las matemáticas.</strong>
+        Es razonable tener que investigar qué herramientas son adecuadas. Pero antes de comprometerte, debes comprobar que la cuestión permite un desarrollo matemático suficiente para AA HL.
+      </div>
+    </section>
+
+    <!-- FASE 6 -->
+    <section class="page" id="page5">
+      <span class="pill">REFLEXIÓN INDIVIDUAL · 4 MIN</span>
+      <h2>6. Mi punto de partida</h2>
+      <p>Recoge tus conclusiones. No necesitas tomar una decisión definitiva hoy.</p>
+
+      <label for="final1">Mi pregunta más prometedora</label>
+      <textarea id="final1" data-save="final1" placeholder="Escribe la pregunta que más te gustaría explorar."></textarea>
+
+      <label for="final2">Mi segunda opción</label>
+      <textarea id="final2" data-save="final2" placeholder="Otra pregunta que me parece interesante."></textarea>
+
+      <label for="final3">Mi tercera opción</label>
+      <textarea id="final3" data-save="final3" placeholder="Una alternativa por si las otras no resultan viables."></textarea>
+
+      <label for="nextStep">Mi siguiente paso</label>
+      <select id="nextStep" data-save="nextStep">
+        <option value="">Selecciona una opción</option>
+        <option>Buscar fuentes de datos</option>
+        <option>Comprobar si hay suficientes datos</option>
+        <option>Investigar las matemáticas que podría utilizar</option>
+        <option>Acotar y reformular la pregunta</option>
+        <option>Probar un modelo o cálculo inicial</option>
+        <option>Consultar al profesor sobre la viabilidad</option>
+        <option>Seguir explorando otras ideas</option>
+      </select>
+
+      <label for="mainConcern">La principal dificultad que necesito resolver</label>
+      <textarea id="mainConcern" data-save="mainConcern" placeholder="No sé qué datos conseguir..., no tengo clara la pregunta..., necesito identificar las matemáticas..."></textarea>
+
+      <div class="callout green">
+        <strong>Objetivo cumplido:</strong> tienes varias líneas posibles para explorar, una idea de las matemáticas que podrían aparecer y un siguiente paso concreto.
+        El tema definitivo llegará después de comprobar la viabilidad y el potencial matemático de tus propuestas.
+      </div>
+
+      <div class="actions no-print">
+        <button class="action teal" id="exportBtn">Exportar mis respuestas (.txt)</button>
+        <button class="action secondary" onclick="window.print()">Imprimir / Guardar como PDF</button>
+        <button class="action secondary" id="clearBtn">Borrar todas mis respuestas</button>
+      </div>
+      <p class="small">El progreso se guarda automáticamente en este navegador. Exporta o imprime tu trabajo si necesitas conservarlo o entregarlo. Los datos no se envían a tu profesor ni a ningún servidor.</p>
+    </section>
+  </main>
+
+  <div class="footer-nav no-print">
+    <button class="action secondary" id="prevBtn">← Anterior</button>
+    <span id="status" aria-live="polite">Fase 1 de 6</span>
+    <button class="action" id="nextBtn">Siguiente →</button>
+  </div>
+</div>
+<footer>Matemáticas: Análisis y Enfoques · Nivel Superior · IB</footer>
+
+<script>
+(function(){
+  const KEY = "ib_aa_hl_ideas_v1";
+  const pages = [...document.querySelectorAll(".page")];
+  const tabs = [...document.querySelectorAll("nav button")];
+  const fields = [...document.querySelectorAll("[data-save]")];
+  let current = 0;
+
+  function load(){
+    try{
+      const saved = JSON.parse(localStorage.getItem(KEY) || "{}");
+      fields.forEach(el=>{
+        const k = el.dataset.save;
+        if(!(k in saved)) return;
+        if(el.type === "checkbox") el.checked = !!saved[k];
+        else el.value = saved[k];
+      });
+    }catch(e){}
+  }
+
+  function save(){
+    try{
+      const data = {};
+      fields.forEach(el=>{
+        data[el.dataset.save] = el.type === "checkbox" ? el.checked : el.value;
+      });
+      localStorage.setItem(KEY, JSON.stringify(data));
+    }catch(e){
+      document.getElementById("status").textContent =
+        "No se pudo guardar automáticamente; exporta tus respuestas.";
+    }
+  }
+
+  function showPage(n){
+    current = Math.max(0, Math.min(pages.length - 1, n));
+    pages.forEach((p,i)=>p.classList.toggle("active", i===current));
+    tabs.forEach((b,i)=>{
+      b.classList.toggle("active", i===current);
+      if(i===current) b.setAttribute("aria-current","step");
+      else b.removeAttribute("aria-current");
+    });
+    document.getElementById("progressBar").style.width =
+      ((current+1)/pages.length*100)+"%";
+    document.getElementById("status").textContent =
+      "Fase "+(current+1)+" de "+pages.length;
+    document.getElementById("prevBtn").disabled = current===0;
+    document.getElementById("nextBtn").textContent =
+      current===pages.length-1 ? "Volver al inicio ↺" : "Siguiente →";
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+
+  fields.forEach(el=>{
+    el.addEventListener("input",save);
+    el.addEventListener("change",save);
+  });
+  tabs.forEach(b=>b.addEventListener("click",()=>showPage(Number(b.dataset.page))));
+  document.getElementById("prevBtn").addEventListener("click",()=>showPage(current-1));
+  document.getElementById("nextBtn").addEventListener("click",()=>{
+    showPage(current===pages.length-1 ? 0 : current+1);
+  });
+
+  document.getElementById("exportBtn").addEventListener("click",()=>{
+    const lines = [
+      "DE MIS INTERESES A UNA INVESTIGACIÓN MATEMÁTICA",
+      "Matemáticas AA HL · IB",
+      "============================================"
+    ];
+    fields.forEach(el=>{
+      const value = el.type==="checkbox" ? (el.checked?"Sí":"No") : el.value;
+      if(value && value.trim && value.trim()!==""){
+        const label = el.closest("div")?.querySelector("label[for='"+el.id+"']");
+        const name = label ? label.innerText : el.dataset.save;
+        lines.push("\n"+name+"\n"+value);
+      } else if(el.type==="checkbox" && el.checked){
+        lines.push("\n"+el.dataset.save+": Sí");
+      }
+    });
+    const blob = new Blob([lines.join("\n")],{type:"text/plain;charset=utf-8"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href=url;
+    a.download="mis_ideas_matematicas_AA_HL.txt";
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  document.getElementById("clearBtn").addEventListener("click",()=>{
+    if(!confirm("¿Seguro que quieres borrar todas tus respuestas guardadas en este navegador?")) return;
+    fields.forEach(el=>{
+      if(el.type==="checkbox") el.checked=false;
+      else el.value="";
+    });
+    try{localStorage.removeItem(KEY)}catch(e){}
+    showPage(0);
+  });
+
+  load();
+  showPage(0);
+})();
+</script>
+</body>
+</html>
